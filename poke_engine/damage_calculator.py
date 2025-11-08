@@ -66,6 +66,8 @@ SPECIAL_LOGIC_MOVES = {
     "finalgambit": lambda attacker, defender: [int(attacker.hp)] if "ghost" not in defender.types else None,
     "endeavor": lambda attacker, defender: [int(defender.hp - attacker.hp)] if defender.hp > attacker.hp and "ghost" not in defender.types else None,
     "painsplit": lambda attacker, defender: [defender.hp - (attacker.hp + defender.hp)/2],
+    # Dragon Rage deals a fixed 40 HP damage unless the target is Fairy-type (immune to Dragon).
+    "dragonrage": lambda attacker, defender: [40] if "fairy" not in defender.types else None,
 }
 
 
