@@ -3,6 +3,14 @@ from ...data import pokedex
 from ...damage_calculator import is_super_effective
 
 
+def dreameater(attacking_side, attacking_move, defending_move, attacking_pokemon, defending_pokemon, first_move, weather, terrain):
+    # Dream Eater only works on sleeping targets; otherwise it should fail.
+    if defending_pokemon.status != constants.SLEEP:
+        attacking_move = attacking_move.copy()
+        attacking_move[constants.ACCURACY] = 0
+    return attacking_move
+
+
 def collisioncourse(attacking_side, attacking_move, defending_move, attacking_pokemon, defending_pokemon, first_move, weather, terrain):
     if is_super_effective(attacking_move[constants.TYPE], defending_pokemon.types):
         attacking_move = attacking_move.copy()
@@ -713,6 +721,7 @@ move_lookup = {
     'focuspunch': focuspunch,
     'acrobatics': acrobatics,
     'technoblast': technoblast,
+    'dreameater': dreameater,
     'futuresight': futuresight,
     'knockoff': knockoff,
     'tripledive': tripledive,
