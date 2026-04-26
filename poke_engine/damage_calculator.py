@@ -31,21 +31,22 @@ pokemon_type_indicies = {
     '???': 18,
 }
 
-damage_multipication_array = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1/2, 0, 1, 1, 1/2, 1, 1],
+# Note : I changed the 0s to 1/8. Also, the following matrix seems to be taken from https://pokemondb.net/type
+damage_multipication_array = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1/2, 1/8, 1, 1, 1/2, 1, 1],
                               [1, 1/2, 1/2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 1/2, 1, 1/2, 1, 2, 1, 1],
                               [1, 2, 1/2, 1, 1/2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1/2, 1, 1, 1, 1],
-                              [1, 1, 2, 1/2, 1/2, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1/2, 1, 1, 1, 1],
+                              [1, 1, 2, 1/2, 1/2, 1, 1, 1, 1/8, 2, 1, 1, 1, 1, 1/2, 1, 1, 1, 1],
                               [1, 1/2, 2, 1, 1/2, 1, 1, 1/2, 2, 1/2, 1, 1/2, 2, 1, 1/2, 1, 1/2, 1, 1],
                               [1, 1/2, 1/2, 1, 2, 1/2, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1/2, 1, 1],
-                              [2, 1, 1, 1, 1, 2, 1, 1/2, 1, 1/2, 1/2, 1/2, 2, 0, 1, 2, 2, 1/2, 1],
-                              [1, 1, 1, 1, 2, 1, 1, 1/2, 1/2, 1, 1, 1, 1/2, 1/2, 1, 1, 0, 2, 1],
-                              [1, 2, 1, 2, 1/2, 1, 1, 2, 1, 0, 1, 1/2, 2, 1, 1, 1, 2, 1, 1],
+                              [2, 1, 1, 1, 1, 2, 1, 1/2, 1, 1/2, 1/2, 1/2, 2, 1/8, 1, 2, 2, 1/2, 1],
+                              [1, 1, 1, 1, 2, 1, 1, 1/2, 1/2, 1, 1, 1, 1/2, 1/2, 1, 1, 1/8, 2, 1],
+                              [1, 2, 1, 2, 1/2, 1, 1, 2, 1, 1/8, 1, 1/2, 2, 1, 1, 1, 2, 1, 1],
                               [1, 1, 1, 1/2, 2, 1, 2, 1, 1, 1, 1, 2, 1/2, 1, 1, 1, 1/2, 1, 1],
-                              [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1/2, 1, 1, 1, 1, 0, 1/2, 1, 1],
+                              [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1/2, 1, 1, 1, 1, 1/8, 1/2, 1, 1],
                               [1, 1/2, 1, 1, 2, 1, 1/2, 1/2, 1, 1/2, 2, 1, 1, 1/2, 1, 2, 1/2, 1/2, 1],
                               [1, 2, 1, 1, 1, 2, 1/2, 1, 1/2, 2, 1, 2, 1, 1, 1, 1, 1/2, 1, 1],
-                              [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1/2, 1, 1, 1],
-                              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1/2, 0, 1],
+                              [1/8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1/2, 1, 1, 1],
+                              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1/2, 1/8, 1],
                               [1, 1, 1, 1, 1, 1, 1/2, 1, 1, 1, 2, 1, 1, 2, 1, 1/2, 1, 1/2, 1],
                               [1, 1/2, 1/2, 1/2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1/2, 2, 1],
                               [1, 1/2, 1, 1, 1, 1, 2, 1/2, 1, 1, 1, 1, 1, 1, 2, 2, 1/2, 1, 1],
@@ -57,6 +58,7 @@ SPECIAL_LOGIC_MOVES = {
     "nightshade": lambda attacker, defender: [int(attacker.level)] if "normal" not in defender.types else None,
     "superfang": lambda attacker, defender: [int(defender.hp / 2)] if "ghost" not in defender.types else None,
     "naturesmadness": lambda attacker, defender: [int(defender.hp / 2)],
+    "guardianofalola": lambda attacker, defender: [int(3*defender.hp / 4)],
     "ruination": lambda attacker, defender: [int(defender.hp / 2)],
     "finalgambit": lambda attacker, defender: [int(attacker.hp)] if "ghost" not in defender.types else None,
     "endeavor": lambda attacker, defender: [int(defender.hp - attacker.hp)] if defender.hp > attacker.hp and "ghost" not in defender.types else None,
@@ -380,8 +382,8 @@ def volatile_status_modifier(attacking_move, attacker, defender):
 
 def calculate_damage(state, attacking_side_string, attacking_move, defending_move, calc_type='average'):
     # a wrapper for `_calculate_damage` that takes into account move/item/ability special-effects
-    from poke_engine.find_state_instructions import update_attacking_move
-    from poke_engine.find_state_instructions import user_moves_first
+    from .find_state_instructions import update_attacking_move
+    from .find_state_instructions import user_moves_first
 
     attacking_move_dict = get_move(attacking_move)
     if defending_move.startswith(constants.SWITCH_STRING + " "):
