@@ -68,6 +68,8 @@ SPECIAL_LOGIC_MOVES = {
     "painsplit": lambda attacker, defender: [defender.hp - (attacker.hp + defender.hp)/2],
     # Dragon Rage deals a fixed 40 HP damage unless the target is Fairy-type (immune to Dragon).
     "dragonrage": lambda attacker, defender: [40] if "fairy" not in defender.types else None,
+    # Sonic Boom deals a fixed 20 HP damage unless the target is Ghost-type (immune to Normal).
+    "sonicboom": lambda attacker, defender: [20] if "ghost" not in defender.types else None,
 }
 
 
